@@ -2,6 +2,26 @@ const db = require("../models");
 const Student = db.students;
 
 exports.create = (req, res) => {
+  const errors = [];
+  if (!req.body.name) {
+    errors.push("Name can not be empty!");
+  }
+
+  if (!req.body.age) {
+    errors.push("Age can not be empty!");
+  }
+
+  if (!req.body.gender) {
+    errors.push("Gender can not be empty!");
+  }
+
+  if (errors.length > 0) {
+    let errorMessage = JSON.stringify(errors);
+    console.log("sa1" + errorMessage);
+    res.status(400).send({ message: errorMessage });
+    return;
+  }
+
   // create mongo model
   const student = new Student({
     name: req.body.name,
@@ -23,6 +43,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
+  console.log("Find all students");
   const name = req.query.name;
 
   var condition = name ? { name: name } : {};
