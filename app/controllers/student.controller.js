@@ -4,20 +4,19 @@ const Student = db.students;
 exports.create = (req, res) => {
   const errors = [];
   if (!req.body.name) {
-    errors.push("Name can not be empty!");
+    errors.push("Name cannot be empty!");
   }
 
   if (!req.body.age) {
-    errors.push("Age can not be empty!");
+    errors.push("Age cannot be empty!");
   }
 
   if (!req.body.gender) {
-    errors.push("Gender can not be empty!");
+    errors.push("Gender cannot be empty!");
   }
 
   if (errors.length > 0) {
     let errorMessage = JSON.stringify(errors);
-    console.log("sa1" + errorMessage);
     res.status(400).send({ message: errorMessage });
     return;
   }
